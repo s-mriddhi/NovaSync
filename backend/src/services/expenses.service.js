@@ -32,7 +32,19 @@ export const createExpenseWithSplits = async (payload) => {
 
   // 3. Store all splits in DB
   for (const s of splits) {
-    await createExpenseSplit(expenseId, s.userId, s.owedAmount, splitType, s.value);
+    const netValue =
+      s.userId === paidBy
+        ? Number((amount - s.owedAmount).toFixed(2))   // payer gets +balance
+        : Number((-s.owedAmount).toFixed(2));          // others get negative
+
+    await createExpenseSplit(
+      expenseId,
+      s.userId,
+      s.owedAmount,
+      netValue,
+      splitType,
+      s.value
+    );
   }
 
   return {
