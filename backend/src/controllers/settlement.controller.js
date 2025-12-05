@@ -1,18 +1,17 @@
-// controllers/settlement.controller.js
 import { calculateSettlement } from "../services/settlement.service.js";
 
-export const getSettlement = async (req, res) => {
+export const getGroupSettlement = async (req, res, next) => {
   try {
-    const { groupId } = req.params;
+    const groupId = req.params.groupId;
 
-    const transactions = await calculateSettlement(groupId);
+    const settlements = await calculateSettlement(groupId);
 
-    return res.json({
+    return res.status(200).json({
+      success: true,
       groupId,
-      transactions
+      settlements,
     });
-  } catch (err) {
-    console.error("Error calculating settlement:", err);
-    return res.status(500).json({ error: "Failed to calculate settlement" });
+  } catch (error) {
+    next(error);
   }
 };

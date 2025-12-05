@@ -1,9 +1,10 @@
 // expense.services.js
 import { createExpense } from '../models/expense.model.js';
 import { createExpenseSplit } from '../models/expenseSplit.model.js';
+import { getGroupMembers } from '../models/groupMember.model.js';
 
 /**
- * MAIN SERVICE: create an expense + calculate owed amounts + store splits
+ * MAIN SERVICE: create an expense + calculate shares + store splits
  */
 export const createExpenseWithSplits = async (payload) => {
   const {
@@ -12,11 +13,11 @@ export const createExpenseWithSplits = async (payload) => {
     description,
     amount,
     expenseDate,
-    splitType,      // "equal" | "exact" | "percentage"
-    participants    // array of: { userId, value }
+    splitType,
+    participants
   } = payload;
 
-  // 1. Create the expense row
+  // 1. Create expense row
   const expense = await createExpense(
     groupId,
     paidBy,
@@ -27,20 +28,32 @@ export const createExpenseWithSplits = async (payload) => {
 
   const expenseId = expense.id;
 
-  // 2. Generate owed amounts based on split type
-  const splits = calculateSplits(amount, splitType, participants);
+  // 2A. If participants array empty → load group members
+  let finalParticipants = participants;
 
-  // 3. Store all splits in DB
+  if (!participants || participants.length === 0) {
+    const members = await getGroupMembers(groupId);
+
+    finalParticipants = members.map(m => ({
+      userId: m.user_id,   // your DB column
+      value: null
+    }));
+  }
+
+  // 2B. Calculate shares
+  const splits = calculateSplits(amount, splitType, finalParticipants);
+
+  // 3. Store splits + net_value
   for (const s of splits) {
     const netValue =
       s.userId === paidBy
-        ? Number((amount - s.owedAmount).toFixed(2))   // payer gets +balance
-        : Number((-s.owedAmount).toFixed(2));          // others get negative
+        ? Number((amount - s.expense_share).toFixed(2))
+        : Number((-s.expense_share).toFixed(2));
 
     await createExpenseSplit(
       expenseId,
       s.userId,
-      s.owedAmount,
+      s.expense_share,
       netValue,
       splitType,
       s.value
@@ -48,13 +61,14 @@ export const createExpenseWithSplits = async (payload) => {
   }
 
   return {
+    message: "Expense created successfully",
     expense,
     splits
   };
 };
 
 /**
- * BUSINESS LOGIC — calculate owed amounts
+ * LOGIC: calculate expense_share for users
  */
 export const calculateSplits = (amount, splitType, participants) => {
   let results = [];
@@ -66,32 +80,31 @@ export const calculateSplits = (amount, splitType, participants) => {
       results = participants.map(p => ({
         userId: p.userId,
         value: null,
-        owedAmount: Number(perPerson.toFixed(2))
+        expense_share: Number(perPerson.toFixed(2))
       }));
       break;
 
     case "exact":
-      // p.value = how much user owes directly
-      const totalExact = participants.reduce((sum, p) => sum + Number(p.value), 0);
-      if (totalExact !== amount)
-        throw new Error("Exact split values must add up to total amount.");
+      const exactTotal = participants.reduce((sum, p) => sum + Number(p.value), 0);
+      if (exactTotal !== amount)
+        throw new Error("Exact split values must match total amount.");
 
       results = participants.map(p => ({
         userId: p.userId,
         value: p.value,
-        owedAmount: Number(p.value)
+        expense_share: Number(p.value)
       }));
       break;
 
     case "percentage":
-      const totalPercent = participants.reduce((sum, p) => sum + Number(p.value), 0);
-      if (totalPercent !== 100)
-        throw new Error("Percentage split must total 100.");
+      const percentTotal = participants.reduce((sum, p) => sum + Number(p.value), 0);
+      if (percentTotal !== 100)
+        throw new Error("Percentage values must total 100.");
 
       results = participants.map(p => ({
         userId: p.userId,
         value: p.value,
-        owedAmount: Number(((p.value / 100) * amount).toFixed(2))
+        expense_share: Number(((p.value / 100) * amount).toFixed(2))
       }));
       break;
 

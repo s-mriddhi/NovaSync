@@ -1,60 +1,56 @@
-// services/settlement.services.js
-import { getExpensesByGroup } from "../models/expense.model.js";
+import db from "../config/db.js"; // your pgPool or pgClient
 
-/**
- * Greedy settlement algorithm
- * Input: groupId
- * Output: array of transactions { from, to, amount }
- */
 export const calculateSettlement = async (groupId) => {
-  const expenses = await getExpensesByGroup(groupId);
+  // 1. Fetch summed net values for all users of the requested group
+  const result = await db.query(
+    `
+      SELECT 
+        user_id,
+        SUM(net_value) AS net
+      FROM expense_splits es
+      JOIN expenses e ON es.expense_id = e.id
+      WHERE e.group_id = $1
+      GROUP BY user_id
+    `,
+    [groupId]
+  );
 
-  // 1. Build net balances for each user
-  const balances = {}; // { userId: balance }
+  const balances = result.rows.map((r) => ({
+    user_id: r.user_id,
+    net: Number(r.net),
+  }));
 
-  for (const expense of expenses) {
-    const paidBy = expense.paid_by;
-    const amount = expense.amount;
+  // 2. Split into payers (negative) and receivers (positive)
+  const debtors = balances
+    .filter((b) => b.net < 0)
+    .map((b) => ({ ...b, net: Math.abs(b.net) })); // positive amounts for algo
 
-    balances[paidBy] = (balances[paidBy] || 0) + amount;
+  const creditors = balances.filter((b) => b.net > 0);
 
-    for (const split of expense.splits) {
-      balances[split.user_id] = (balances[split.user_id] || 0) - split.owed_amount;
-    }
-  }
+  // 3. Greedy settlement
+  const settlements = [];
 
-  // 2. Separate creditors and debtors
-  const creditors = [];
-  const debtors = [];
-
-  for (const [userId, balance] of Object.entries(balances)) {
-    const amt = Number(balance.toFixed(2));
-    if (amt > 0) creditors.push({ userId, amount: amt });
-    else if (amt < 0) debtors.push({ userId, amount: -amt });
-  }
-
-  // 3. Greedy matching
-  const transactions = [];
-  let i = 0, j = 0;
+  let i = 0;
+  let j = 0;
 
   while (i < debtors.length && j < creditors.length) {
     const debtor = debtors[i];
     const creditor = creditors[j];
 
-    const settledAmount = Math.min(debtor.amount, creditor.amount);
+    const amount = Math.min(debtor.net, creditor.net);
 
-    transactions.push({
-      from: debtor.userId,
-      to: creditor.userId,
-      amount: settledAmount
+    settlements.push({
+      from: debtor.user_id,
+      to: creditor.user_id,
+      amount,
     });
 
-    debtor.amount -= settledAmount;
-    creditor.amount -= settledAmount;
+    debtor.net -= amount;
+    creditor.net -= amount;
 
-    if (debtor.amount === 0) i++;
-    if (creditor.amount === 0) j++;
+    if (debtor.net === 0) i++;
+    if (creditor.net === 0) j++;
   }
 
-  return transactions;
+  return settlements;
 };
