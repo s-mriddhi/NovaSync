@@ -16,7 +16,7 @@ router.get("/check", (req, res) => {
 router.post("/register", rateLimit, validate(registerSchema), registerUser);
 
 // Login route
-router.post("/login", validate(loginSchema), loginUser);
+router.post("/login", rateLimit, validate(loginSchema), loginUser);
 
 // Example protected route
 router.get("/profile", auth, (req, res) => {
