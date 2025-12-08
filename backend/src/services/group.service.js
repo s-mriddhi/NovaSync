@@ -1,5 +1,10 @@
 import { createGroup, getGroupById } from '../models/group.model.js';
 import { addMemberToGroup, getGroupMembers } from '../models/groupMember.model.js';
+import { getUserGroups } from "../models/group.model.js";
+
+export const fetchUserGroups = async (email) => {
+  return await getUserGroups(email);
+};
 
 export const createNewGroup = async (groupName, groupDescription, createdBy, memberIds = []) => {
   // 1. Create the group
