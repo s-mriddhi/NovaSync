@@ -2,9 +2,11 @@
   display: flex;
   min-height: 100vh;
   background: #fafafa;
+
 }
 
 .content {
+  margin-left: 290px; /* Width of the sidebar */
   flex: 1;
   padding: 40px;
 }
@@ -65,4 +67,102 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+
+/* ---- EXPENSE SECTION ---- */
+
+.expenseList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.expenseCard {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: 0.15s ease-in-out;
+}
+
+.expenseCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.expenseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expenseTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.expenseAmount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #e34c1e;
+}
+
+.expenseMeta {
+  margin-top: 6px;
+  color: #666;
+  font-size: 14px;
+}
+
+.splitContainer {
+  margin-top: 14px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.splitRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.splitUser {
+  font-weight: 500;
+}
+
+.splitOwes {
+  font-weight: 600;
+  color: #333;
+}
+
+.splitRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.splitUser {
+  font-weight: 600;
+}
+
+.splitType {
+  margin-left: 10px;
+  color: #666;
+  font-size: 13px;
+}
+
+.splitPercent {
+  margin-left: 5px;
+  color: #888;
+  font-size: 13px;
+}
+
+.splitShare {
+  margin-left: auto;
+  font-weight: 600;
 }

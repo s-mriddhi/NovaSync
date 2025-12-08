@@ -5,9 +5,12 @@
 }
 
 .rightPanel {
+  margin-left: 400px; /* Width of the sidebar */
   flex: 1;
   padding: 30px;
   overflow-y: auto;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Your existing classes */
