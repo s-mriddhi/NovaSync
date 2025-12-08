@@ -10,7 +10,12 @@ export const addMemberToGroup = async (groupId, userId) => {
 
 export const getGroupMembers = async (groupId) => {
   const result = await pool.query(
-    `SELECT * FROM group_members WHERE group_id = $1`,
+    `
+    SELECT gm.id, gm.group_id, gm.user_id, gm.joined_at, u.name, u.email
+    FROM group_members gm
+    JOIN users u ON gm.user_id = u.id
+    WHERE gm.group_id = $1
+    `,
     [groupId]
   );
   return result.rows;
