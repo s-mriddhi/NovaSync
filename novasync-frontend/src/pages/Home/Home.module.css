@@ -1,11 +1,77 @@
 .container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* FIXED */
+  justify-content: flex-start;
+
+  background: #eedecc;
+  padding: 20px 20px;
+  box-sizing: border-box;
+  text-align: center;
+  width: 300px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;             /* space between left and right */
+  width: 100%;
+  
+}
+.right {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 20px;
+
+  width: 1200px;
   height: 100vh;
-  width: 100vw;
-  font-family: sans-serif;
-  text-align: center;
-  background-color: #fff7e6;
+}
+h2 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+p {
+  font-size: 18px;
+  color: #686268;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #d53a7b;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background-color: #cc0081;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* Logout button base */
+.logout {
+  background-color: transparent;
+  color: #290922;
+  border: 1px solid #d53a7b;
+  margin-top: 20px;
+}
+
+/* MUST BE LAST */
+.logout:hover{
+  background-color: #d53a7b;
+  color: white;
 }
