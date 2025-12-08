@@ -1,0 +1,91 @@
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: #f6eedc;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.userSection {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.username {
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.homeButton {
+  width: 100%;
+  padding: 10px;
+  background: #fb92b0;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.homeButton:hover {
+  background: #6c2771;
+}
+
+.groupsHeader {
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #11090d;
+}
+
+.groupList {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.groupItem {
+  padding: 10px;
+  margin-bottom: 6px;
+  background: #efe899;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #eee;
+}
+
+.groupItem:hover {
+  background: #edec91;
+}
+
+.info {
+  color: #150310;
+  font-size: 14px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.divider {
+  margin: 20px 0;
+  border: none;
+  height: 1px;
+  background: #cb87c2;
+}
+
+.logout {
+  background-color: transparent;
+  color: #290922;
+  border-radius: 12px;
+  border: 1px solid #d53a7b;
+  margin-top: 20px;
+}
+
+/* MUST BE LAST */
+.logout:hover{
+  background-color: #d53a7b;
+  color: white;
+}

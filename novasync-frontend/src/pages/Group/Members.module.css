@@ -1,0 +1,44 @@
+/* Members.module.css */
+
+.section {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #ffffff; /* white background */
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333333;
+}
+
+.memberList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.memberItem {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.memberItem:last-child {
+  border-bottom: none;
+}
+
+.memberName {
+  font-weight: 500;
+  color: #278cFF; /* primary color */
+}
+
+.memberEmail {
+  font-size: 0.9rem;
+  color: #666666;
+}

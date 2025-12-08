@@ -1,0 +1,68 @@
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: #fafafa;
+}
+
+.content {
+  flex: 1;
+  padding: 40px;
+}
+
+.title {
+    color: rgb(151, 3, 82);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.meta {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.section {
+  margin-top: 30px;
+  align-items: center;
+  border: #666;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.memberList {
+  list-style: none;
+  padding: 0;
+  align-items: center;
+  border-color: #666;
+}
+
+.memberItem {
+  display: flex;
+  gap: 10px; /* space between name and email */
+  padding: 5px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.memberName {
+  font-weight: 500;
+}
+
+.memberEmail {
+  color: #888;
+}
+
+.loadingWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
