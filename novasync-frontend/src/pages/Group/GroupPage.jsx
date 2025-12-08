@@ -13,6 +13,24 @@ export default function GroupPage() {
 
   // ✅ Added this
   const [expenses, setExpenses] = useState([]);
+  const [settlements, setSettlements] = useState([]);
+const [showSettlements, setShowSettlements] = useState(false);
+
+useEffect(() => {
+  const fetchSettlements = async () => {
+    try {
+      const res = await axios.get(`http://localhost:4000/api/${groupId}`);
+      if (res.data?.success) {
+        setSettlements(res.data.settlements);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  fetchSettlements();
+}, [groupId]);
+
 
   useEffect(() => {
     const fetchGroup = async () => {
@@ -149,6 +167,41 @@ export default function GroupPage() {
             </div>
           )}
         </section>
+
+        {/* ---------------- SETTLEMENTS SECTION ---------------- */}
+<section className={styles.section}>
+  <h2 className={styles.sectionTitle}>Settlements</h2>
+
+  {/* Toggle Button */}
+  <button
+    className={styles.settlementToggleBtn}
+    onClick={() => setShowSettlements(!showSettlements)}
+  >
+    {showSettlements ? "Hide Settlements" : "Show Settlements"}
+  </button>
+
+  {showSettlements && (
+    <div className={styles.settlementList}>
+      {settlements.length === 0 ? (
+        <p>No settlements required 🎉</p>
+      ) : (
+        settlements.map((s, index) => (
+          <div key={index} className={styles.settlementCard}>
+            <p className={styles.settlementText}>
+              <strong>User {s.from}</strong> → owes →
+              <strong> User {s.to}</strong>
+            </p>
+
+            <p className={styles.settlementAmount}>
+              Amount: ₹{s.amount}
+            </p>
+          </div>
+        ))
+      )}
+    </div>
+  )}
+</section>
+
       </div>
     </div>
   );

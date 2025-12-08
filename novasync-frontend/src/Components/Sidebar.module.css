@@ -1,7 +1,7 @@
 .sidebar {
   width: 260px;
   height: 100vh;
-  background: #f6eedc;
+  background: #f6eff2;
   border-right: 1px solid #ddd;
   padding: 20px;
   display: flex;
@@ -23,7 +23,7 @@
 .homeButton {
   width: 100%;
   padding: 10px;
-  background: #fb92b0;
+  background: #fbc192;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -50,14 +50,14 @@
 .groupItem {
   padding: 10px;
   margin-bottom: 6px;
-  background: #efe899;
+  background: #f5dded;
   border-radius: 6px;
   cursor: pointer;
   border: 1px solid #eee;
 }
 
 .groupItem:hover {
-  background: #edec91;
+  background: #f8bef5;
 }
 
 .info {
