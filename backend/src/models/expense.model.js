@@ -13,6 +13,7 @@ export const createExpense = async (groupId, paidBy, description, amount, expens
 export const getExpensesByGroup = async (groupId) => {
   const result = await pool.query(
     `SELECT e.*,
+            payer.name AS paid_by_name,
             COALESCE(
               json_agg(
                 json_build_object(
@@ -26,10 +27,11 @@ export const getExpensesByGroup = async (groupId) => {
               '[]'
             ) AS splits
      FROM expenses e
+     LEFT JOIN users payer ON payer.id = e.paid_by
      LEFT JOIN expense_splits es ON es.expense_id = e.id
      LEFT JOIN users u ON u.id = es.user_id
      WHERE e.group_id = $1
-     GROUP BY e.id
+     GROUP BY e.id, payer.name
      ORDER BY e.expense_date DESC`,
     [groupId]
   );
