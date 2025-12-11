@@ -23,15 +23,45 @@
   color: #555;
 }
 
-.createBtn {
+/*.createBtn {
   background-color: #bb105a;
   color: white;
   padding: 12px 20px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .createBtn:hover {
-  background-color: #d30367;
+  background-color: #df4791;
+}
+*/
+
+.createBtn {
+  background: linear-gradient(135deg, #70165e, #cd5396, #e94293);
+  background-size: 200% 200%;
+  animation: softWave 4s ease-in-out infinite;
+
+  color: rgb(255, 255, 255);
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Soft horizontal/diagonal wave animation */
+@keyframes softWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Gentle hover lift + glow */
+.createBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(235, 97, 198, 0.4);
 }

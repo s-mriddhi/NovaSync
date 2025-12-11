@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../Components/Sidebar";
+import CreateGroupModal from "../../Components/CreateGroup";  
+// make sure file name matches: CreateGroupModal.jsx
 
 export default function Home() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  const [showCreateGroup, setShowCreateGroup] = useState(false);
 
   const handleCreateGroup = () => {
-    navigate("/create-group");
+    setShowCreateGroup(true);    // open popup (NOT navigate)
   };
 
   return (
@@ -25,9 +28,18 @@ export default function Home() {
             Your one-stop solution for managing shared expenses.
           </p>
 
+          {/* Create Group Button */}
           <button className={styles.createBtn} onClick={handleCreateGroup}>
             Create Group
           </button>
+
+          {/* Popup Modal */}
+          {showCreateGroup && (
+            <CreateGroupModal
+              isOpen={showCreateGroup}
+              onClose={() => setShowCreateGroup(false)}
+            />
+          )}
         </div>
       </div>
     </div>
