@@ -14,13 +14,13 @@
 .content {
   margin-left: 28px; /* Width of the sidebar */
   flex: 1;
-  padding: 40px;
+  padding: 0 40px 40px 40px;
 }
 
 .title {
     color: rgb(151, 3, 82);
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 760;
   margin-bottom: 10px;
 }
 
@@ -42,7 +42,7 @@
 
 .sectionTitle {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 680;
   margin-bottom: 12px;
 }
 
@@ -204,4 +204,27 @@
   font-size: 16px;
   font-weight: 640;
   color: #555;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.addButton {
+  background: #3f073e;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.addButton:hover {
+  background: #28041e;
 }

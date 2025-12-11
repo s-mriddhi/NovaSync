@@ -26,7 +26,7 @@ export default function Sidebar() {
         const encodedEmail = encodeURIComponent(user.email);
 
         const res = await axios.get(
-          `http://localhost:4000/api/groups/user/${encodedEmail}/groups`,
+          `http://localhost:4000/api/groups/user/${encodedEmail}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

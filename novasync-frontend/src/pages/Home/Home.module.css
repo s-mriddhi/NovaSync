@@ -24,7 +24,7 @@
 }
 
 .createBtn {
-  background-color: #d73da4;
+  background-color: #bb105a;
   color: white;
   padding: 12px 20px;
   border-radius: 8px;
@@ -33,5 +33,5 @@
 }
 
 .createBtn:hover {
-  background-color: #f38ada;
+  background-color: #d30367;
 }

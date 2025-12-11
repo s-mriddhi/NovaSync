@@ -23,7 +23,7 @@
 .homeButton {
   width: 100%;
   padding: 10px;
-  background: #fbc192;
+  background: #1e062a;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -57,7 +57,7 @@
 }
 
 .groupItem:hover {
-  background: #f8bef5;
+  background: #b99ebd;
 }
 
 .info {

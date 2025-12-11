@@ -6,7 +6,7 @@
   width: 100vw;
   height: 100vh;
   gap: 15px;
-  background-color:  #f5ede4;
+  background-color:  #f5f5f5;
 }
 form {
   display: flex;
@@ -17,10 +17,18 @@ input {
   padding: 10px;
   font-size: 16px;
   width: 250px;
+  border-radius: 12px;
+  color: azure;
 }
+
 button {
-    background-color: rgb(197, 59, 162);
+    background-color: rgb(73, 24, 93);
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
+  border-radius: 12px;
+}
+
+button:hover {
+    background-color: #230824;
 }
