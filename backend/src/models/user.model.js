@@ -14,3 +14,10 @@ export const getUserById = async (id) => {
   return result.rows[0];
 };
 
+export const getUserIdByName = async (name) => {
+  const result = await pool.query(
+    `SELECT id FROM users WHERE name = $1`,
+    [name]
+  );
+  return result.rows[0];  // might return { id: 3 }
+};

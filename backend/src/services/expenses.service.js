@@ -1,56 +1,37 @@
-// expense.services.js
 import { createExpense } from '../models/expense.model.js';
 import { createExpenseSplit } from '../models/expenseSplit.model.js';
 import { getGroupMembers } from '../models/groupMember.model.js';
+import pool from '../config/db.js';
 
 /**
  * MAIN SERVICE: create an expense + calculate shares + store splits
  */
 export const createExpenseWithSplits = async (payload) => {
-  const {
-    groupId,
-    paidBy,
-    description,
-    amount,
-    expenseDate,
-    splitType,
-    participants
-  } = payload;
+  const { groupId, paidBy, description, amount, expenseDate, splitType, participants } = payload;
 
-  // 1. Create expense row
-  const expense = await createExpense(
-    groupId,
-    paidBy,
-    description,
-    amount,
-    expenseDate
-  );
-
+  // 1️⃣ Create expense row
+  const expense = await createExpense(groupId, paidBy, description, amount, expenseDate);
   const expenseId = expense.id;
 
-  // 2A. If participants array empty → load group members
+  // 2️⃣ Determine participants
   let finalParticipants = participants;
 
   if (!participants || participants.length === 0) {
     const members = await getGroupMembers(groupId);
-
-    finalParticipants = members.map(m => ({
-      userId: m.user_id,   // your DB column
-      value: null
-    }));
+    finalParticipants = members.map(m => ({ userId: m.user_id, value: null }));
   }
 
-  // 2B. Calculate shares
+  // 3️⃣ Calculate splits
   const splits = calculateSplits(amount, splitType, finalParticipants);
 
-  // 3. Store splits + net_value
+  // 4️⃣ Store splits + net_value
+  const storedSplits = [];
   for (const s of splits) {
-    const netValue =
-      s.userId === paidBy
-        ? Number((amount - s.expense_share).toFixed(2))
-        : Number((-s.expense_share).toFixed(2));
+    const netValue = s.userId === paidBy
+      ? Number((amount - s.expense_share).toFixed(2))
+      : Number((-s.expense_share).toFixed(2));
 
-    await createExpenseSplit(
+    const splitRow = await createExpenseSplit(
       expenseId,
       s.userId,
       s.expense_share,
@@ -58,18 +39,35 @@ export const createExpenseWithSplits = async (payload) => {
       splitType,
       s.value
     );
+
+    storedSplits.push(splitRow);
   }
+
+  // 5️⃣ Fetch user names for splits
+  const userIds = storedSplits.map(s => s.user_id);
+  const { rows: users } = await pool.query(
+    `SELECT id, name FROM users WHERE id = ANY($1)`,
+    [userIds]
+  );
+
+  // Map id → name
+  const userMap = {};
+  users.forEach(u => (userMap[u.id] = u.name));
+
+  // Attach name to splits
+  const splitsWithNames = storedSplits.map(s => ({
+    ...s,
+    name: userMap[s.user_id] || `User ${s.user_id}`
+  }));
 
   return {
     message: "Expense created successfully",
     expense,
-    splits
+    splits: splitsWithNames
   };
 };
 
-/**
- * LOGIC: calculate expense_share for users
- */
+
 export const calculateSplits = (amount, splitType, participants) => {
   let results = [];
 

@@ -1,16 +1,16 @@
-import db from "../config/db.js"; // your pgPool or pgClient
+import db from "../config/db.js";
 
 export const calculateSettlement = async (groupId) => {
-  // 1. Fetch summed net values for all users of the requested group
+  // 1. Fetch summed net values
   const result = await db.query(
     `
       SELECT 
-        user_id,
-        SUM(net_value) AS net
+        es.user_id,
+        SUM(es.net_value) AS net
       FROM expense_splits es
       JOIN expenses e ON es.expense_id = e.id
       WHERE e.group_id = $1
-      GROUP BY user_id
+      GROUP BY es.user_id
     `,
     [groupId]
   );
@@ -20,14 +20,27 @@ export const calculateSettlement = async (groupId) => {
     net: Number(r.net),
   }));
 
-  // 2. Split into payers (negative) and receivers (positive)
+  // 2. Fetch user names for all involved users
+  const userIds = balances.map((b) => b.user_id);
+
+  const userRes = await db.query(
+    `SELECT id, name FROM users WHERE id = ANY($1)`,
+    [userIds]
+  );
+
+  const userMap = {};
+  userRes.rows.forEach((u) => {
+    userMap[u.id] = u.name;
+  });
+
+  // 3. Separate creditors and debtors
   const debtors = balances
     .filter((b) => b.net < 0)
-    .map((b) => ({ ...b, net: Math.abs(b.net) })); // positive amounts for algo
+    .map((b) => ({ ...b, net: Math.abs(b.net) }));
 
   const creditors = balances.filter((b) => b.net > 0);
 
-  // 3. Greedy settlement
+  // 4. Greedy settlement
   const settlements = [];
 
   let i = 0;
@@ -40,8 +53,10 @@ export const calculateSettlement = async (groupId) => {
     const amount = Math.min(debtor.net, creditor.net);
 
     settlements.push({
-      from: debtor.user_id,
-      to: creditor.user_id,
+      from_user_id: debtor.user_id,
+      from_name: userMap[debtor.user_id],
+      to_user_id: creditor.user_id,
+      to_name: userMap[creditor.user_id],
       amount,
     });
 

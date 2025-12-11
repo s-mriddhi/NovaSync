@@ -17,6 +17,7 @@ export const getExpensesByGroup = async (groupId) => {
               json_agg(
                 json_build_object(
                   'user_id', es.user_id,
+                  'name', u.name,
                   'split_type', es.split_type,
                   'value', es.value,
                   'owed_amount', es.owed_amount
@@ -26,6 +27,7 @@ export const getExpensesByGroup = async (groupId) => {
             ) AS splits
      FROM expenses e
      LEFT JOIN expense_splits es ON es.expense_id = e.id
+     LEFT JOIN users u ON u.id = es.user_id
      WHERE e.group_id = $1
      GROUP BY e.id
      ORDER BY e.expense_date DESC`,

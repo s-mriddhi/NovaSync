@@ -1,3 +1,4 @@
+//UNUSED MODEL
 import pool from '../config/db.js';
 
 export const updateBalance = async (groupId, fromUserId, toUserId, balanceAmount) => {

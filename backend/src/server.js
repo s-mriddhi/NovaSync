@@ -11,6 +11,7 @@ import authRoutes from "./routes/auth.routes.js";
 import groupRoutes from "./routes/groups.routes.js";
 import expenseRoutes from "./routes/expenses.routes.js";
 import settlementRoutes from "./routes/settlement.routes.js";
+import userRoutes from "./routes/users.routes.js";  
 
 console.log("JWT_SECRET =", process.env.JWT_SECRET); // check it's loaded
 
@@ -21,10 +22,11 @@ app.use(express.json());
 // Routes
 app.use("/api/hello", helloRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/groups", groupRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api", settlementRoutes);
-//all the above routes are connected atleast.
+  // Connect user routes
 
 // Start server
 const PORT = process.env.PORT || 4000;

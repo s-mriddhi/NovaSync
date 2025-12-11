@@ -9,10 +9,10 @@ const router = express.Router();
 router.get("/check", (req, res) => {
   res.json({ message: "Group routes are working!" });
 });
-router.get("/user/:email/groups", getGroupsByUserEmail);
+router.get("/user/:email", getGroupsByUserEmail);
 // All routes are protected by auth
 router.post('/', auth, createGroupController);      // create a new group
 router.get('/:id', auth, getGroupController);       // get group by id with members
 
-
 export default router;
+

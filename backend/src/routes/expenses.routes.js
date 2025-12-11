@@ -13,13 +13,13 @@ router.get("/check", (req, res) => {
 });
 
 // Create expense + splits (service integrated)
-router.post("/groups/:groupId/expenses", auth, createExpense);
+router.post("/groups/:groupId/", auth, createExpense);
 
-// Optional: Manual splits route (kept untouched)
+// Optional: Manual splits route (kept untouched)//not used
 router.post("/expenses/:expenseId/splits", auth, addExpenseSplits);
 
 // Get all expenses with splits
-router.get("/groups/:groupId/expenses", auth, async (req, res) => {
+router.get("/groups/:groupId/", auth, async (req, res) => {
   try {
     const expenses = await ExpenseModel.getExpensesByGroup(req.params.groupId);
     res.json(expenses);

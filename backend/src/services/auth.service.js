@@ -1,6 +1,8 @@
 import pool from "../config/db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+//no model imports here as we are directly using pool to query db
+
 
 // REGISTER USER
 export const registerUserService = async ({ name, email, password }) => {
@@ -20,7 +22,7 @@ export const registerUserService = async ({ name, email, password }) => {
     [name, email, hashedPassword]
   );
 
-  return result.rows[0];
+  return result.rows[0];//return first row which contains id, name, email , idhar ek hi user at a time register hoga toh doesnt make sense to return multiple rows.
 };
 
 // LOGIN USER
