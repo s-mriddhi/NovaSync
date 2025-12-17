@@ -86,7 +86,7 @@ npm install
 npm run dev
 
 # Frontend setup
-cd ../frontend
+cd ../novasync-frontend
 npm install
 npm start
 ```
