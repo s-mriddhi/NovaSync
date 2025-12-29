@@ -13,13 +13,27 @@
 }
 
 .modal {
-  background: white;
+ background: linear-gradient(
+  135deg,
+  rgb(22, 2, 30),
+  rgb(28, 6, 38),
+  rgb(23, 2, 20)
+);
   padding: 24px;
   width: 380px;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  color: azure;
 }
 
+.form{
+  background: linear-gradient(
+  135deg,
+  rgb(22, 2, 30),
+  rgb(28, 6, 38),
+  rgb(23, 2, 20)
+);
+}
 .emailRow {
   display: flex;
   gap: 4px;
@@ -67,7 +81,7 @@
 }
 
 .createBtn {
-  background: #490551;
+  background: #83025c;
   color: white;
   padding: 10px 16px;
   border: none;

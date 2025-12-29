@@ -9,7 +9,12 @@
 }
 
 .modal {
-  background: white;
+ background: linear-gradient(
+  135deg,
+  rgb(22, 2, 30),
+  rgb(28, 6, 38),
+  rgb(23, 2, 20)
+);
   padding: 24px;
   border-radius: 12px;
   width: 400px;
@@ -20,12 +25,21 @@
   0% { transform: scale(0.9); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
 }
-
+.form{
+background: linear-gradient(
+  135deg,
+  rgb(22, 2, 30),
+  rgb(28, 6, 38),
+  rgb(23, 2, 20)
+);
+}
 .formRow {
+  
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 14px;
+
 }
 
 .label {
@@ -38,7 +52,7 @@
 .dropdownBox {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #323232;
   border-radius: 8px;
   font-size: 15px;
   outline: none;

@@ -7,10 +7,12 @@
 .rightPanel {
   margin-left: 400px; /* Width of the sidebar */
   flex: 1;
+   background: #19050a;
   padding: 30px;
   overflow-y: auto;
   align-items: center;
   justify-content: center;
+  color: azure;
 }
 
 /* Your existing classes */
@@ -20,7 +22,7 @@
 
 .subtitle {
   margin: 10px 0;
-  color: #555;
+  color: #c8c4c7;
 }
 
 /*.createBtn {

@@ -151,7 +151,10 @@
     0 0 8px rgba(239, 206, 99, 0.323),
     0 0 8px rgba(236, 180, 84, 0.25);
 }
-
+.groupItemActive {
+  background: #e0e02f0f;
+ border: #1f1d0896;
+}
 .info {
   color: #150310;
   font-size: 14px;
