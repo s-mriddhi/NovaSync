@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./Sidebar.module.css";
-
+import avatar from "../assets/avatar.png";
+import logo from "../assets/NovaSync_logo.png";
 export default function Sidebar() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -19,7 +20,7 @@ export default function Sidebar() {
   };
 
   const goHome = () => navigate("/home");
-
+  
   useEffect(() => {
     const fetchGroups = async () => {
       try {
@@ -48,9 +49,20 @@ export default function Sidebar() {
 
   return (
     <div className={styles.sidebar}>
+      <img
+    src={logo}
+    alt="text"
+    className={styles.logo}
+  />
       {/* USER PROFILE */}
-      <div className={styles.userSection}>
-        <div className={styles.username}>{user?.name || "User"}</div>
+      <div className={styles.userSection}>   
+  <img
+    src={avatar}
+    alt="profile"
+    className={styles.avatar}
+    
+  />
+        <div className={styles.username}>User: {user?.name || "User"}</div>
         <div className={styles.email}>{user?.email || "No email"}</div>
         <button className={styles.logout} onClick={handleLogout}>
           Logout

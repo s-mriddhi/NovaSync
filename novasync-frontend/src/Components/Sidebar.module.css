@@ -1,19 +1,73 @@
 .sidebar {
   width: 260px;
   height: 100vh;
-  background: #f6eff2;
+  background: #1e0319;
   border-right: 1px solid #ddd;
   padding: 20px;
   display: flex;
   flex-direction: column;
   position: fixed;
 }
-
+.logo{
+  width: 156px;
+  height: 28px;
+  object-fit: cover;
+  padding-left: 40px;
+  margin-bottom: 24px;
+}
 .userSection {
+  position: relative;
   text-align: center;
   margin-bottom: 20px;
+  background-color: #21071dd8; /* deep charcoal purple */
+  padding-bottom: 20px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.221);
+  color: rgb(241, 223, 244);
 }
 
+.userSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(236, 95, 199, 0.25),
+    rgba(90, 40, 180, 0.12),
+    rgba(247, 67, 169, 0.435)
+  );
+  background-size: 220% 220%;
+  animation: waveMove 10s ease-in-out infinite;
+  z-index: 0;
+}
+@keyframes waveMove {
+  0% {
+    background-position: 0% 45%;
+  }
+  60% {
+    background-position: 100% 55%;
+  }
+  100% {
+    background-position: 0% 45%;
+  }
+}
+.userSection > * {
+  position: relative;
+  z-index: 1;
+}
+
+.avatar {
+  margin-top: 16px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 0.8px solid #280327; /* matches your palette */
+  box-shadow:
+    0 0 16px rgba(219, 125, 233, 0.712),
+    0 0 24px rgba(246, 40, 225, 0.25);
+}
 
 .username {
   margin-top: 8px;
@@ -23,7 +77,7 @@
 .homeButton {
   width: 100%;
   padding: 10px;
-  background: #1e062a;
+  background: #75217953;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -32,6 +86,9 @@
 
 .homeButton:hover {
   background: #6c2771;
+  box-shadow:
+    0 0 16px rgba(184, 63, 148, 0.323),
+    0 0 24px rgba(183, 29, 167, 0.25);
 }
 
 .groupsHeader {
@@ -74,19 +131,24 @@
   margin: 20px 0;
   border: none;
   height: 1px;
-  background: #cb87c2;
+  background: #682c60;
 }
 
 .logout {
   background-color: transparent;
-  color: #290922;
+  color: #b39dafc5;
   border-radius: 12px;
-  border: 1px solid #d53a7b;
+  padding-left: 16px;
+  padding-right: 16px;
+  border: 1px solid #957a8f;
   margin-top: 20px;
 }
 
 /* MUST BE LAST */
 .logout:hover{
-  background-color: #d53a7b;
+  background-color: #4b183f;
   color: white;
+  box-shadow:
+    0 0 16px rgba(184, 63, 148, 0.323),
+    0 0 24px rgba(183, 29, 167, 0.25);
 }
