@@ -6,6 +6,7 @@ export default function SectionNav() {
     { id: "members-section", label: "Members" },
     { id: "expenses-section", label: "Expenses" },
     { id: "settlement-section", label: "Settlements" },
+    { id: "chatbox-section", label: "Chatbox" },
   ];
 
   const [active, setActive] = useState("members-section");

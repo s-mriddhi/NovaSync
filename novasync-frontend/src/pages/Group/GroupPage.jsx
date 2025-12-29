@@ -10,6 +10,7 @@ import GroupHeader from "./components/GroupHeader";
 import MembersSection from "./components/MembersSection";
 import ExpensesSection from "./components/ExpensesSection";
 import SettlementsSection from "./components/SettlementsSection";
+import GroupSummary from "./components/GroupSummary"; 
 
 import styles from "./GroupPage.module.css";
 
@@ -58,7 +59,15 @@ export default function GroupPage() {
       <div className={styles.rightSide}>
         <SectionNav />
         <div className={styles.content}>
-          <GroupHeader group={group} />
+          <div className={styles.groupTopRow}>
+  <div className={styles.groupHeaderStack}>
+    <GroupHeader group={group} />
+  </div>
+
+  <GroupSummary
+    group={{ ...group, expenses }}
+  />
+</div>
           <MembersSection members={group.members} />
           <ExpensesSection
             expenses={expenses}

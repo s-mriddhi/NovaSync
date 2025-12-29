@@ -2,44 +2,57 @@
   position: sticky;
   top: 0;
   z-index: 50;
-    align-items: right;
-    justify-content: space-evenly;
+
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   gap: 12px;
 
-  padding: 10px 4px;
-  background: #ffffffcc;
-  backdrop-filter: blur(12px);
+  padding: 10px 8px;
+  margin-bottom: 20px;
+
+  /* Dark glass */
+  background: rgba(25, 5, 28, 0.382);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 
   border-radius: 16px;
-  margin-bottom: 20px;
+  border: 1px solid rgba(66, 68, 69, 0.08);
+
+  box-shadow: 0 8px 30px rgba(31, 31, 31, 0.35);
+
+  transition: all 0.3s ease ;
 }
 
 /* Soft pill buttons */
 .navItem {
-  padding: 12px 20px;
+  padding: 12px 16px;
   border: none;
   border-radius: 12px;
 
   background: transparent;
-  color: #6c6c6c;
-  font-size: 16px;
-  font-weight: 500;
+  color: rgba(235, 210, 235, 0.75);
 
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
+
   transition: all 0.25s ease;
 }
 
-/* Gentle hover */
+/* Hover – subtle glow */
 .navItem:hover {
-  background: transparent;
-  color: #3305199e;
+  color: #f8f8f3;
+  
 }
 
-/* Active soft pill */
+/* Active pill */
 .active {
-   background: #fcf7fc;
-  color: #3305199e;
+  
+  color: #f2ecff;
   font-weight: 600;
-border-bottom: #6c6c6c 2px solid;
-  box-shadow: 0 2px 6px rgba(255, 180, 220, 0.25);}
+
+  box-shadow:
+    0 4px 8px rgba(205, 130, 205, 0.203),
+    inset 0 0 0 1px rgba(239, 255, 170, 0.18);
+}

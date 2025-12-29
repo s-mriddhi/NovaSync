@@ -1,0 +1,41 @@
+
+.groupSummary {
+  margin-top: 14px;
+  padding: 24px 32px;
+  border-radius: 20px;
+
+  background: rgba(30, 22, 40, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.groupImage {
+  width: 160px;
+  height: 140px;
+  border-radius: 48px;
+  object-fit: cover;
+
+  margin-bottom: 12px;
+
+  box-shadow:
+    0 0 0 2px rgba(125, 120, 255, 0.35),
+    0 8px 20px rgba(179, 120, 255, 0.25);
+}
+
+.totalAmount {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f3edff;
+}
+
+.subText {
+  margin-top: 2px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(229, 224, 236, 0.9);
+}
