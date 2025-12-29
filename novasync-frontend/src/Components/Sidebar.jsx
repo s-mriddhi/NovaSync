@@ -4,6 +4,9 @@ import axios from "axios";
 import styles from "./Sidebar.module.css";
 import avatar from "../assets/avatar.png";
 import logo from "../assets/NovaSync_logo.png";
+
+
+
 export default function Sidebar() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -77,7 +80,9 @@ export default function Sidebar() {
       <hr className={styles.divider} />
 
       {/* GROUPS HEADER */}
-      <div className={styles.groupsHeader}>Your Groups</div>
+      <div className={styles.groupsHeader}>Your Groups
+        <button className={styles.addGroupBtn}>+</button>
+      </div>
 
       {loading && <div className={styles.info}>Loading groups...</div>}
       {error && <div className={styles.error}>{error}</div>}

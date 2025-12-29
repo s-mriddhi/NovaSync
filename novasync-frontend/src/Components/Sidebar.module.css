@@ -92,14 +92,42 @@
 }
 
 .groupsHeader {
-  margin-top: 16px;
-  font-size: 14px;
+  margin-top: 0px;
+  font-size: 16px;
   font-weight: bold;
-  color: #11090d;
+  color: #a89ea3;
+  text-align: justify;
+  display: flex;
+  justify-content: space-between;
+}
+.addGroupBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(140, 80, 255, 0.18);
+  color: #efb6f8;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
+.addGroupBtn:hover {
+  background: rgba(243, 80, 255, 0.35);
+  transform: scale(1.1);
+   box-shadow:
+    0 0 16px rgba(184, 63, 148, 0.323),
+    0 0 24px rgba(183, 29, 167, 0.25);
+}
+
+.addGroupBtn:active {
+  transform: scale(0.95);
+}
 .groupList {
-  margin-top: 10px;
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
 }
@@ -107,14 +135,21 @@
 .groupItem {
   padding: 10px;
   margin-bottom: 6px;
-  background: #f5dded;
+  background: #e0e02f0f;
   border-radius: 6px;
   cursor: pointer;
-  border: 1px solid #eee;
+  border: 0.8px solid #e2b6232c;
+  color: white;
+   transition: all 0.2s ease;
 }
 
 .groupItem:hover {
-  background: #b99ebd;
+  background: #e0e02f0f;
+  scale: 1.04;
+  border: #34321e96;
+  box-shadow:
+    0 0 8px rgba(239, 206, 99, 0.323),
+    0 0 8px rgba(236, 180, 84, 0.25);
 }
 
 .info {
