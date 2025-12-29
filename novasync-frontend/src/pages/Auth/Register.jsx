@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./Register.module.css";
+import myPic from "../../assets/NovaSync.png";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -31,6 +32,16 @@ export default function Register() {
 
   return (
     <div className={styles.container}>
+      <div
+        style={{
+          backgroundImage: `url(${myPic})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          width: "400px",
+          height: "400px",
+         }}
+      /><div style={{border: '0.8px solid #f0f3deff', textAlign: 'center', padding: '28px', borderRadius: '12px', backgroundColor: '#fbfbfbff'}}>
       <h2>Register</h2>
       <form onSubmit={handleRegister} className={styles.form}>
         <input 
@@ -59,6 +70,6 @@ export default function Register() {
       <p>
         Already have an account? <Link to="/signin">Sign In</Link>
       </p>
-    </div>
+    </div></div>
   );
 }

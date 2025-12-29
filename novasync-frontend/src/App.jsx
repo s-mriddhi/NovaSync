@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import SignIn from "./pages/Auth/SignIn";
 import Register from "./pages/Auth/Register.jsx";
 import Home from "./pages/Home/Home.jsx";
-import GroupPage from "/Users/pabbucooldude/novasync/novasync-frontend/src/pages/Group/GroupPage.jsx"; // ✅ import your new page
+import GroupPage from "./pages/Group/GroupPage.jsx"; 
 import "./App.css";
 
 const App = () => {

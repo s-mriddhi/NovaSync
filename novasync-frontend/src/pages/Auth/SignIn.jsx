@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./SignIn.module.css";
-import myPic from "/Users/pabbucooldude/novasync/novasync-frontend/src/assets/NovaSync.png";
+import myPic from "../../assets/NovaSync.png";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -38,10 +38,10 @@ export default function SignIn() {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     width: "400px",
-    height: "200px",
+    height: "400px",
    }}
-/><div style={{border: '0.8px solid #f0f3deff', padding: '28px', borderRadius: '12px', backgroundColor: '#fbfbfbff'}}>
-      <h2 style={{color: '#41353cff'}}>Sign In</h2>
+/><div style={{border: '0.8px solid #f0f3deff', textAlign: 'center', padding: '28px', borderRadius: '12px', backgroundColor: '#fbfbfbff'}}>
+      <div className="contents"><div><h2 style={{color: '#41353cff'}}>Sign In</h2></div>
       <form onSubmit={handleLogin} className={styles.form}>
         <input 
           type="email" 
@@ -61,7 +61,7 @@ export default function SignIn() {
       </form>
       <p>
         Don't have an account? <Link to="/register">Register</Link>
-      </p>
+      </p></div>
     </div></div>
   );
 }
