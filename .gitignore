@@ -1,9 +1,9 @@
 # dependencies
 node_modules/
-
+schema.md
 # environment variables
 .env
-
+.env.docker
 # build output
 dist/
 build/
