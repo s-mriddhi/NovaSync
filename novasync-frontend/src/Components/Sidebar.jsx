@@ -74,7 +74,7 @@ export default function Sidebar() {
 
       {/* HOME BUTTON */}
       <button className={styles.homeButton} onClick={goHome}>
-        🏠 Home
+         Home
       </button>
 
       <hr className={styles.divider} />

@@ -7,7 +7,7 @@ NovaSync is a full-stack expense-splitting web application built to simplify gro
 ## Key Features
 
 * Group-based expense management
-* Multiple split modes: Equal, Exact, Percentage
+* Multiple split strategies: Equal, Exact, Percentage
 * Automatic balance calculation and settlements
 * User-friendly data representation (names instead of raw IDs)
 * Responsive and intuitive UI
@@ -19,7 +19,7 @@ NovaSync is a full-stack expense-splitting web application built to simplify gro
 * **Frontend:** React.js, HTML5, CSS3, JavaScript
 * **Backend:** Node.js, Express.js, REST APIs
 * **Database:** PostgreSQL
-* **Tools:** Git, GitHub, VS Code
+* **Tools:** Git, GitHub, VS Code, Postman
 
 ---
 
@@ -32,7 +32,7 @@ NovaSync is a full-stack expense-splitting web application built to simplify gro
 
 ---
 
-## API Capabilities (High Level)
+## API Capabilities 
 
 * Create and manage groups
 * Add and retrieve expenses by group
@@ -72,6 +72,20 @@ NovaSync supports three expense-splitting strategies. All calculations are handl
 * Negative balance → user owes money
 * Settlement data is derived server-side to keep frontend logic minimal
 
+Settlement as a Flow Problem (Intuition)
+
+Users with +balance → containers that need filling
+Users with -balance → containers that have water to give
+We just move water until all containers are level (0).
+
+### Greedy Strategy (High-Level)
+Step 1: Separate Users
+Creditors → balance > 0
+Debtors → balance < 0
+Step 2: Sort (optional but helps)
+Creditors: descending balance
+Debtors: ascending balance (most negative first)
+Step 3: Match Greedily
 ---
 
 ## ⚙️ Local Setup
