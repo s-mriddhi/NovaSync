@@ -79,13 +79,13 @@ Users with -balance → containers that have water to give
 We just move water until all containers are level (0).
 
 ### Greedy Strategy (High-Level)
-Step 1: Separate Users
-Creditors → balance > 0
-Debtors → balance < 0
-Step 2: Sort (optional but helps)
-Creditors: descending balance
-Debtors: ascending balance (most negative first)
-Step 3: Match Greedily
+*Step 1: Separate Users
+*Creditors → balance > 0
+*Debtors → balance < 0
+*Step 2: Sort (optional but helps)
+*Creditors: descending balance
+*Debtors: ascending balance (most negative first)
+*Step 3: Match Greedily
 ---
 
 ## ⚙️ Local Setup
