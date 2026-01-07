@@ -4,16 +4,16 @@ import { getGroupMembers } from '../models/groupMember.model.js';
 import pool from '../config/db.js';
 
 /**
- * MAIN SERVICE: create an expense + calculate shares + store splits
+ * CORE SERVICE: create an expense + calculate shares + store splits
  */
 export const createExpenseWithSplits = async (payload) => {
   const { groupId, paidBy, description, amount, expenseDate, splitType, participants } = payload;
 
-  // 1️⃣ Create expense row
+  //  Create expense row
   const expense = await createExpense(groupId, paidBy, description, amount, expenseDate);
   const expenseId = expense.id;
 
-  // 2️⃣ Determine participants
+  // Determine participants
   let finalParticipants = participants;
 
   if (!participants || participants.length === 0) {
@@ -21,10 +21,10 @@ export const createExpenseWithSplits = async (payload) => {
     finalParticipants = members.map(m => ({ userId: m.user_id, value: null }));
   }
 
-  // 3️⃣ Calculate splits
+  //  Calculate splits
   const splits = calculateSplits(amount, splitType, finalParticipants);
 
-  // 4️⃣ Store splits + net_value
+  // Store splits + net_value
   const storedSplits = [];
   for (const s of splits) {
     const netValue = s.userId === paidBy
@@ -43,7 +43,7 @@ export const createExpenseWithSplits = async (payload) => {
     storedSplits.push(splitRow);
   }
 
-  // 5️⃣ Fetch user names for splits
+  // Fetch user names for splits
   const userIds = storedSplits.map(s => s.user_id);
   const { rows: users } = await pool.query(
     `SELECT id, name FROM users WHERE id = ANY($1)`,
